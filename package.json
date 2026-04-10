@@ -1,0 +1,10 @@
+{
+  "name": "stundu-izmainas-app",
+  "version": "1.0.0",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.18.2",
+    "web-push": "^3.6.6",
+    "node-fetch": "^2.6.7"
+  }
+}

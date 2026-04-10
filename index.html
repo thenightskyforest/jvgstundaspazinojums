@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Stundu izmaiņas</title>
+</head>
+<body>
+  <h1>Stundu izmaiņas</h1>
+  <button onclick="subscribe()">Enable Notifications</button>
+
+  <script>
+    async function subscribe() {
+      const reg = await navigator.serviceWorker.register('/sw.js');
+
+      const permission = await Notification.requestPermission();
+      if (permission !== 'granted') {
+        alert("Permission denied");
+        return;
+      }
+
+      const sub = await reg.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: 'REPLACE_WITH_YOUR_PUBLIC_KEY'
+      });
+
+      await fetch('/subscribe', {
+        method: 'POST',
+        body: JSON.stringify(sub),
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      alert("Subscribed!");
+    }
+  </script>
+</body>
+</html>
